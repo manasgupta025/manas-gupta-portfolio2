@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supreet Gupta | Aspiring Data Analyst & BCA Student</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Subtle Data Grid Background */
+        .bg-data-grid {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+        }
+        .dark .bg-data-grid {
+            background-image: 
+                linear-gradient(to right, rgba(129, 140, 248, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(129, 140, 248, 0.06) 1px, transparent 1px);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-300 selection:bg-indigo-500 selection:text-white bg-data-grid min-h-screen flex flex-col">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none no-print"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-cyan-500 flex items-center justify-center text-white font-mono font-bold text-lg shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                    SG
+                </div>
+                <div>
+                    <span class="font-bold tracking-tight text-slate-900 dark:text-white block leading-none">Supreet Gupta</span>
+                    <span class="text-[11px] font-mono text-indigo-600 dark:text-indigo-400 tracking-wider uppercase">Data Analyst Portfolio</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <a href="#about" class="px-3 py-2 rounded-lg hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition">About</a>
+                <a href="#skills" class="px-3 py-2 rounded-lg hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition">Skills & Data</a>
+                <a href="#projects" class="px-3 py-2 rounded-lg hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition flex items-center gap-1.5">
+                    <span>Projects</span>
+                    <span class="px-1.5 py-0.5 text-[10px] font-mono bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-500/20">Live Demos</span>
+                </a>
+                <a href="#education" class="px-3 py-2 rounded-lg hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition">Education</a>
+                <a href="#contact" class="px-3 py-2 rounded-lg hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition">Contact</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800 transition">
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-700"></i>
+                </button>
+
+                <!-- Resume Modal Button -->
+                <button onclick="openResumeModal()" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm shadow-indigo-500/20 transition">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                    <span>Resume View</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-3 pb-5 space-y-2">
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900">About & Strengths</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900">Skills & Pipeline</a>
+            <a href="#projects" class="mobile-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900">Interactive Projects</a>
+            <a href="#education" class="mobile-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900">Education & Certifications</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900">Contact</a>
+            <button onclick="openResumeModal()" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>View / Print Resume</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28">
+            <!-- Ambient Background Glow -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-indigo-500/15 dark:bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+                    
+                    <!-- Left Column: Intro & CTAs -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-mono font-medium">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Available for Entry-Level Data Analyst Roles & Internships</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+                            Turning Raw Data Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-400 to-cyan-400">Clear, Usable Insights.</span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                            Hi, I'm <strong class="text-slate-900 dark:text-white font-semibold">Supreet Gupta</strong> — a detail-oriented <strong class="text-slate-900 dark:text-white font-semibold">BCA Student</strong> based in Lucknow, India. I combine a strong foundation in <span class="font-mono text-sm px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-800 text-indigo-600 dark:text-indigo-300">SQL</span>, structured record handling, and analytical programming to solve data problems accurately.
+                        </p>
+
+                        <!-- Quick Location & Contact Pills -->
+                        <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 pt-1">
+                            <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-indigo-500"></i>
+                                <span>Lucknow, India</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 text-cyan-500"></i>
+                                <span>BCA @ PSIT Kanpur (2024–2027)</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-wrap items-center gap-3.5 pt-2">
+                            <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 hover:-translate-y-0.5 transition-all">
+                                <i data-lucide="database" class="w-4 h-4"></i>
+                                <span>Explore Interactive Projects</span>
+                            </a>
+                            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-800 transition-all">
+                                <i data-lucide="mail" class="w-4 h-4 text-indigo-500"></i>
+                                <span>Contact Me</span>
+                            </a>
+                            <a href="https://linkedin.com/in/supreet-gupta-a6771a381" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-sm border border-slate-200 dark:border-slate-800 transition-all" title="LinkedIn Profile">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-sky-500"></i>
+                                <span class="hidden sm:inline">LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive SQL / Data Profile Card -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden text-slate-200">
+                            <!-- Terminal Header -->
+                            <div class="px-4 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                                    <span class="ml-2 text-xs font-mono text-slate-400">candidate_profile.sql</span>
+                                </div>
+                                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">READY</span>
+                            </div>
+
+                            <!-- Interactive Query Body -->
+                            <div class="p-5 font-mono text-xs sm:text-sm space-y-4">
+                                <div class="bg-slate-950/90 p-3.5 rounded-xl border border-slate-800/90 leading-relaxed">
+                                    <span class="text-pink-400">SELECT</span> name, role, core_focus, status<br>
+                                    <span class="text-pink-400">FROM</span> data_analysts<br>
+                                    <span class="text-pink-400">WHERE</span> location = <span class="text-emerald-400">'Lucknow, India'</span><br>
+                                    &nbsp;&nbsp;<span class="text-pink-400">AND</span> sql_certified = <span class="text-amber-300">TRUE</span>;
+                                </div>
+
+                                <!-- Query Result Table -->
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                                        <span>QUERY OUTPUT (1 row matched in 0.002s)</span>
+                                        <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified</span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2.5 pt-1">
+                                        <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                                            <div class="text-[10px] text-slate-400 uppercase">Primary Query Stack</div>
+                                            <div class="text-sm font-semibold text-white mt-0.5">SQL & Python</div>
+                                            <div class="text-[11px] text-indigo-400 mt-0.5">Joins, CRUD, Pandas</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                                            <div class="text-[10px] text-slate-400 uppercase">Cloud & Certs</div>
+                                            <div class="text-sm font-semibold text-white mt-0.5">HackerRank + Azure</div>
+                                            <div class="text-[11px] text-cyan-400 mt-0.5">SQL Basic & Azure Fund.</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                                            <div class="text-[10px] text-slate-400 uppercase">Programming Core</div>
+                                            <div class="text-sm font-semibold text-white mt-0.5">C, C++, Java, JS</div>
+                                            <div class="text-[11px] text-emerald-400 mt-0.5">OOP & File Systems</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                                            <div class="text-[10px] text-slate-400 uppercase">BI Pipeline</div>
+                                            <div class="text-sm font-semibold text-white mt-0.5">Excel & Power BI</div>
+                                            <div class="text-[11px] text-amber-400 mt-0.5">Data Visualization</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT & CORE STRENGTHS SECTION -->
+        <section id="about" class="py-16 bg-white/60 dark:bg-slate-900/40 border-y border-slate-200/70 dark:border-slate-800/70">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                        <span>Career Objective & Core Strengths</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                        Structured Thinking Meets Practical Data Handling
+                    </h2>
+                    <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Detail-oriented BCA student with a strong foundation in SQL, programming, and structured data handling, seeking an entry-level <strong class="text-slate-900 dark:text-white">Data Analyst</strong> role. Comfortable working with data queries, file-based record systems, and logical problem-solving, with a genuine interest in turning raw data into clear, usable insights.
+                    </p>
+                </div>
+
+                <!-- 3 Core Strengths Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                    <!-- Strength 1 -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-indigo-500/50 transition-all group">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="terminal" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4">SQL & Logical Problem-Solving</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                            Strong grasp of SQL queries, joins, and aggregation basics combined with logical problem-solving and a quick ability to pick up new data tools.
+                        </p>
+                    </div>
+
+                    <!-- Strength 2 -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-cyan-500/50 transition-all group">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="hard-drive" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4">Accurate Record Management</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                            Comfortable structuring, storing, and retrieving data accurately across small systems using file-based persistence, CRUD workflows, and browser storage.
+                        </p>
+                    </div>
+
+                    <!-- Strength 3 -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-emerald-500/50 transition-all group">
+                        <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4">Analytics & Team Readiness</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                            Eager to build hands-on experience with Excel, Power BI, and Python (<span class="font-mono text-xs">pandas</span>) for data analysis and reporting in a collaborative team environment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNICAL SKILLS & INTERACTIVE ANALYTICS SECTION -->
+        <section id="skills" class="py-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+                            <i data-lucide="cpu" class="w-4 h-4"></i>
+                            <span>Technical Competency Matrix</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Skills & Learning Pipeline</h2>
+                    </div>
+
+                    <!-- Skill Category Filter Tabs -->
+                    <div class="flex flex-wrap gap-1.5 bg-slate-200/70 dark:bg-slate-900 p-1.5 rounded-xl border border-slate-300/60 dark:border-slate-800">
+                        <button onclick="filterSkills('all')" data-skill-tab="all" class="skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition">All Skills</button>
+                        <button onclick="filterSkills('data')" data-skill-tab="data" class="skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Data & SQL</button>
+                        <button onclick="filterSkills('prog')" data-skill-tab="prog" class="skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Programming</button>
+                        <button onclick="filterSkills('learning')" data-skill-tab="learning" class="skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Currently Learning</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Left: Interactive Radar / Polygon Visualization Card -->
+                    <div class="lg:col-span-5 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base">Competency Radar</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Balanced foundation across data & code</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">Interactive SVG</span>
+                        </div>
+
+                        <!-- SVG Radar Chart -->
+                        <div class="relative flex items-center justify-center my-2">
+                            <svg viewBox="0 0 260 240" class="w-full max-w-[290px] h-auto overflow-visible">
+                                <!-- Background Hexagons -->
+                                <polygon points="130,30 216,80 216,160 130,210 44,160 44,80" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1.5"/>
+                                <polygon points="130,55 195,92 195,148 130,185 65,148 65,92" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1" stroke-dasharray="3 3"/>
+                                <polygon points="130,80 173,105 173,135 130,160 87,135 87,105" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+
+                                <!-- Axis Lines -->
+                                <line x1="130" y1="120" x2="130" y2="30" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+                                <line x1="130" y1="120" x2="216" y2="80" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+                                <line x1="130" y1="120" x2="216" y2="160" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+                                <line x1="130" y1="120" x2="130" y2="210" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+                                <line x1="130" y1="120" x2="44" y2="160" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+                                <line x1="130" y1="120" x2="44" y2="80" stroke="currentColor" class="text-slate-200 dark:text-slate-800" stroke-width="1"/>
+
+                                <!-- Data Polygon -->
+                                <polygon points="130,42 203,86 198,152 130,196 68,149 62,88" fill="rgba(99, 102, 241, 0.22)" stroke="#6366f1" stroke-width="2.5"/>
+
+                                <!-- Data Nodes -->
+                                <circle cx="130" cy="42" r="4.5" class="fill-indigo-500" />
+                                <circle cx="203" cy="86" r="4.5" class="fill-cyan-500" />
+                                <circle cx="198" cy="152" r="4.5" class="fill-indigo-500" />
+                                <circle cx="130" cy="196" r="4.5" class="fill-emerald-500" />
+                                <circle cx="68" cy="149" r="4.5" class="fill-amber-500" />
+                                <circle cx="62" cy="88" r="4.5" class="fill-indigo-500" />
+
+                                <!-- Labels -->
+                                <text x="130" y="18" text-anchor="middle" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">SQL & Queries (88%)</text>
+                                <text x="224" y="82" text-anchor="start" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">OOP & Code</text>
+                                <text x="224" y="164" text-anchor="start" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">File CRUD</text>
+                                <text x="130" y="228" text-anchor="middle" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">Logical Analysis</text>
+                                <text x="36" y="164" text-anchor="end" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">BI & Pandas</text>
+                                <text x="36" y="82" text-anchor="end" class="text-[10px] font-mono fill-slate-700 dark:fill-slate-300 font-semibold">Azure Basics</text>
+                            </svg>
+                        </div>
+
+                        <!-- Currently Learning Callout Box -->
+                        <div class="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                            <div class="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-semibold text-xs uppercase tracking-wider">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                <span>Active Upskilling Pipeline</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
+                                Currently advancing skills in <strong class="text-slate-900 dark:text-white">Excel / Power BI</strong> for interactive dashboarding and <strong class="text-slate-900 dark:text-white">Python (pandas)</strong> for exploratory data analysis.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Detailed Skill Cards Grid -->
+                    <div id="skills-grid" class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Card 1: Data & Querying -->
+                        <div data-category="data" class="skill-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-indigo-600 dark:text-indigo-400 font-semibold">Data & Querying</span>
+                                <i data-lucide="database" class="w-4 h-4 text-indigo-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">SQL</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Queries, Joins, Filtering & Aggregation Basics</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-indigo-600 h-full rounded-full" style="width: 88%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">SELECT / WHERE</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">JOINS</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">GROUP BY</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Programming Languages -->
+                        <div data-category="prog" class="skill-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-cyan-600 dark:text-cyan-400 font-semibold">Languages</span>
+                                <i data-lucide="code-2" class="w-4 h-4 text-cyan-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">Multi-Language Foundation</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Strong syntax & algorithmic logic</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-cyan-500 h-full rounded-full" style="width: 85%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Python</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">C / C++</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Java</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">JavaScript</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Data Handling -->
+                        <div data-category="data" class="skill-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Data Handling</span>
+                                <i data-lucide="folder-kanban" class="w-4 h-4 text-emerald-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">Structured Record Systems</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">File handling & Data Structures (basics)</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 84%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">File I/O</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">CRUD Logic</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Local Storage</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Core Concepts -->
+                        <div data-category="prog" class="skill-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-purple-600 dark:text-purple-400 font-semibold">Core Concepts</span>
+                                <i data-lucide="boxes" class="w-4 h-4 text-purple-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">OOP & Analytical Thinking</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Modular data models & logical problem-solving</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-purple-500 h-full rounded-full" style="width: 86%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Encapsulation</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Modular Design</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Cloud Basics -->
+                        <div data-category="data" class="skill-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-sky-600 dark:text-sky-400 font-semibold">Cloud Basics</span>
+                                <i data-lucide="cloud" class="w-4 h-4 text-sky-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">Microsoft Azure Fundamentals</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Cloud concepts, data storage & core services</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-sky-500 h-full rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Azure Certified</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Cloud Concepts</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Currently Learning -->
+                        <div data-category="learning" class="skill-card p-5 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-amber-500/5 dark:from-indigo-500/10 dark:to-amber-500/10 border border-amber-500/30 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono uppercase text-amber-600 dark:text-amber-400 font-semibold">Currently Learning</span>
+                                <i data-lucide="trending-up" class="w-4 h-4 text-amber-500"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white mt-2">BI & Python Data Analysis</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Data visualization & dataframe manipulation</p>
+                            <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-amber-500 h-full rounded-full" style="width: 68%"></div>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">Excel</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">Power BI</span>
+                                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">Python (pandas)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RELEVANT PROJECTS WITH INTERACTIVE LIVE SIMULATORS -->
+        <section id="projects" class="py-20 bg-white/60 dark:bg-slate-900/40 border-y border-slate-200/70 dark:border-slate-800/70">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
+                            <span>Hands-On Data & Record Systems</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Featured Projects & Live Interactive Demos</h2>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md">
+                        Click <span class="font-semibold text-indigo-600 dark:text-indigo-400">"Launch Interactive Demo"</span> on either project below to test how records are created, queried, and persisted right inside your browser.
+                    </p>
+                </div>
+
+                <!-- Project Cards Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                    <!-- PROJECT 1: Student Management System -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg overflow-hidden flex flex-col justify-between group hover:border-indigo-500/60 transition-all">
+                        <div>
+                            <!-- Top Banner -->
+                            <div class="p-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border-b border-slate-800">
+                                <div class="flex items-center justify-between gap-2 mb-3">
+                                    <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                                        C++ / Java • File Handling • OOP
+                                    </span>
+                                    <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                        Interactive Simulator
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold tracking-tight">Student Management System</h3>
+                                <p class="text-xs text-slate-300 mt-1">Structured Record CRUD & Persistent File Storage Engine</p>
+                            </div>
+
+                            <!-- Project Details -->
+                            <div class="p-6 space-y-4">
+                                <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 shrink-0 mt-1"></i>
+                                        <span>Built a console-based system to <strong>add, update, search, and delete</strong> structured student records — core CRUD operations on stored data.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 shrink-0 mt-1"></i>
+                                        <span>Used <strong>file handling</strong> to persist and retrieve records between sessions, simulating basic database read/write operations.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500 shrink-0 mt-1"></i>
+                                        <span>Applied <strong>Object-Oriented Programming (OOP)</strong> to keep the data model modular and maintainable.</span>
+                                    </li>
+                                </ul>
+
+                                <!-- Mini Metrics Preview -->
+                                <div class="grid grid-cols-3 gap-2 pt-2">
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Operations</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">Full CRUD</div>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Storage</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">File Stream I/O</div>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Architecture</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">Modular OOP</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Footer -->
+                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Try querying & adding student records</span>
+                            <button onclick="openStudentModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm shadow-indigo-500/20 transition">
+                                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                <span>Launch Interactive Demo</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT 2: To-Do List Web Application -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg overflow-hidden flex flex-col justify-between group hover:border-cyan-500/60 transition-all">
+                        <div>
+                            <!-- Top Banner -->
+                            <div class="p-6 bg-gradient-to-r from-slate-900 via-cyan-950 to-slate-900 text-white border-b border-slate-800">
+                                <div class="flex items-center justify-between gap-2 mb-3">
+                                    <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+                                        HTML • CSS • JavaScript • LocalStorage
+                                    </span>
+                                    <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                        Live Web App
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold tracking-tight">To-Do List Web Application</h3>
+                                <p class="text-xs text-slate-300 mt-1">Data-Driven Task Tracker with Client-Side Persistence</p>
+                            </div>
+
+                            <!-- Project Details -->
+                            <div class="p-6 space-y-4">
+                                <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-1"></i>
+                                        <span>Built a <strong>data-driven task tracker</strong> where users create, update, and filter task records by status (All, Pending, Completed).</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-1"></i>
+                                        <span>Used <strong>browser Local Storage</strong> to persist structured JSON data across sessions without requiring a backend server.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-1"></i>
+                                        <span>Designed clean status analytics and instant filtering to keep task datasets organized and actionable.</span>
+                                    </li>
+                                </ul>
+
+                                <!-- Mini Metrics Preview -->
+                                <div class="grid grid-cols-3 gap-2 pt-2">
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Data Format</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">Structured JSON</div>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Persistence</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">LocalStorage API</div>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 text-center">
+                                        <div class="text-xs font-mono text-slate-400">Querying</div>
+                                        <div class="text-sm font-bold text-slate-900 dark:text-white">Status Filtering</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Footer -->
+                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Test adding, toggling & filtering tasks</span>
+                            <button onclick="openTodoModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm shadow-cyan-500/20 transition">
+                                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                <span>Launch Interactive Demo</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION & CERTIFICATIONS SECTION -->
+        <section id="education" class="py-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+                    <!-- Left Column: Academic Education -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+                                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                                <span>Academic Background</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Education</h2>
+                        </div>
+
+                        <div class="relative pl-6 border-l-2 border-indigo-500/40 space-y-6">
+                            <div class="relative p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <!-- Timeline Dot -->
+                                <div class="absolute -left-[31px] top-7 w-4 h-4 rounded-full bg-indigo-600 border-4 border-slate-50 dark:border-slate-950"></div>
+
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <span class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                                        2024 – 2027 (Pursuing)
+                                    </span>
+                                    <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-medium">Currently in 2nd Year</span>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3">
+                                    Bachelor of Computer Applications (BCA)
+                                </h3>
+                                <p class="text-sm font-medium text-slate-700 dark:text-slate-300 mt-1">
+                                    PSIT (Pranveer Singh Institute of Technology), Kanpur
+                                </p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+                                    Focused on Database Management Systems (SQL), Object-Oriented Programming (C++, Java, Python), Data Structures, and File Record Systems.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Certifications -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-2">
+                                <i data-lucide="award" class="w-4 h-4"></i>
+                                <span>Verified Credentials</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Certifications</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Cert 1 -->
+                            <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4 hover:border-indigo-500/50 transition">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 shrink-0 font-mono font-bold">
+                                    SQL
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">HackerRank Certification</span>
+                                        <span class="text-[11px] font-mono text-slate-400">Verified</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">SQL (Basic)</h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                        Demonstrated competency in relational database queries, filtering, joins, and aggregation operations.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Cert 2 -->
+                            <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4 hover:border-sky-500/50 transition">
+                                <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-500 shrink-0 font-mono font-bold">
+                                    AZ
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-mono uppercase text-sky-600 dark:text-sky-400 font-semibold">Udemy Certification</span>
+                                        <span class="text-[11px] font-mono text-slate-400">Completed</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Microsoft Azure Fundamentals (Basics)</h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                        Covered core cloud computing concepts, Azure data storage services, and cloud governance basics.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 bg-white/60 dark:bg-slate-900/40 border-t border-slate-200/70 dark:border-slate-800/70 no-print">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+                    <!-- Left Info & One-Click Copy Cards -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div>
+                            <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Get In Touch</span>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Let's Discuss Data Opportunities</h2>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                                Looking for an entry-level Data Analyst or intern who loves working with SQL, structured datasets, and Python/Power BI? Feel free to reach out directly.
+                            </p>
+                        </div>
+
+                        <!-- Contact Cards with Copy Buttons -->
+                        <div class="space-y-3">
+                            <!-- Email Card -->
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                                        <i data-lucide="mail" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="truncate">
+                                        <div class="text-[11px] font-mono uppercase text-slate-400">Email Address</div>
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white truncate">manas.gupta44444@gmail.com</div>
+                                    </div>
+                                </div>
+                                <button onclick="copyText('manas.gupta44444@gmail.com', 'Email address')" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-300 transition shrink-0">
+                                    Copy
+                                </button>
+                            </div>
+
+                            <!-- Phone Card -->
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                                        <i data-lucide="phone" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[11px] font-mono uppercase text-slate-400">Phone / WhatsApp</div>
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white">+91 9305145509</div>
+                                    </div>
+                                </div>
+                                <button onclick="copyText('9305145509', 'Phone number')" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-300 transition shrink-0">
+                                    Copy
+                                </button>
+                            </div>
+
+                            <!-- LinkedIn Card -->
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-500 flex items-center justify-center shrink-0">
+                                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="truncate">
+                                        <div class="text-[11px] font-mono uppercase text-slate-400">LinkedIn Profile</div>
+                                        <div class="text-sm font-semibold text-slate-900 dark:text-white truncate">linkedin.com/in/supreet-gupta-a6771a381</div>
+                                    </div>
+                                </div>
+                                <a href="https://linkedin.com/in/supreet-gupta-a6771a381" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 hover:bg-sky-600 hover:text-white text-slate-700 dark:text-slate-300 transition shrink-0">
+                                    Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Contact Message Composer -->
+                    <div class="lg:col-span-7">
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Send a Direct Message</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-slate-500 dark:text-slate-400 mb-1.5">Your Name *</label>
+                                    <input type="text" id="sender-name" required placeholder="e.g. Hiring Manager" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-slate-500 dark:text-slate-400 mb-1.5">Your Email *</label>
+                                    <input type="email" id="sender-email" required placeholder="you@company.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-slate-500 dark:text-slate-400 mb-1.5">Subject</label>
+                                <input type="text" id="sender-subject" placeholder="Entry-Level Data Analyst Opportunity" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono uppercase text-slate-500 dark:text-slate-400 mb-1.5">Message *</label>
+                                <textarea id="sender-message" rows="4" required placeholder="Hi Supreet, we'd love to connect regarding a Data Analyst role..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500"></textarea>
+                            </div>
+                            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                                <span class="text-xs text-slate-400">Opens your default mail client pre-filled or copies message.</span>
+                                <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-md shadow-indigo-500/20 transition">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Send Message</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 no-print">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-800 dark:text-slate-200">Supreet Gupta</span>
+                <span>•</span>
+                <span>Aspiring Data Analyst & BCA Student (Lucknow, India)</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openResumeModal()" class="hover:text-indigo-500 underline">Resume Summary</button>
+                <a href="https://linkedin.com/in/supreet-gupta-a6771a381" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-500">LinkedIn</a>
+                <a href="mailto:manas.gupta44444@gmail.com" class="hover:text-indigo-500">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: INTERACTIVE STUDENT MANAGEMENT SYSTEM SIMULATOR (CRUD / SQL) -->
+    <!-- ===================================================================== -->
+    <div id="student-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 no-print">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="database" class="w-5 h-5 text-indigo-400"></i>
+                    <div>
+                        <h3 class="font-bold text-base">Student Management System — Interactive CRUD & SQL Simulator</h3>
+                        <p class="text-[11px] font-mono text-slate-400">Simulating C++/Java File Record Persistence & Querying</p>
+                    </div>
+                </div>
+                <button onclick="closeStudentModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto space-y-5 flex-1">
+                <!-- Live SQL Query Preview Bar -->
+                <div class="p-3.5 rounded-xl bg-slate-950 text-slate-200 font-mono text-xs border border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="text-slate-500">// Active File/SQL Operation:</span>
+                        <div id="student-sql-preview" class="text-indigo-300 mt-0.5">SELECT * FROM student_records.dat ORDER BY roll_no ASC;</div>
+                    </div>
+                    <span id="student-count-badge" class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">5 Records Stored</span>
+                </div>
+
+                <!-- Controls: Search, Filter & Add New Student -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                    <div class="md:col-span-5">
+                        <input type="text" id="student-search" oninput="renderStudentRecords()" placeholder="Search by Name or Roll No..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm">
+                    </div>
+                    <div class="md:col-span-4">
+                        <select id="student-filter-course" onchange="renderStudentRecords()" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm">
+                            <option value="ALL">All Streams / Courses</option>
+                            <option value="BCA Data Analytics">BCA Data Analytics</option>
+                            <option value="BCA Core">BCA Core</option>
+                            <option value="BCA Cloud & SQL">BCA Cloud & SQL</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-3">
+                        <button onclick="resetStudentDemo()" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-mono">
+                            Reset Dummy File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Record Form -->
+                <form onsubmit="addStudentRecord(event)" class="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                    <div class="sm:col-span-3">
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Roll No</label>
+                        <input type="number" id="stu-roll" required placeholder="106" class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+                    </div>
+                    <div class="sm:col-span-4">
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Name</label>
+                        <input type="text" id="stu-name" required placeholder="Aarav Verma" class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Stream</label>
+                        <select id="stu-course" class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+                            <option value="BCA Data Analytics">BCA Data Analytics</option>
+                            <option value="BCA Core">BCA Core</option>
+                            <option value="BCA Cloud & SQL">BCA Cloud & SQL</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">CGPA</label>
+                        <input type="number" step="0.1" min="0" max="10" id="stu-cgpa" required placeholder="8.6" class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
+                    </div>
+                    <div class="sm:col-span-12 flex justify-end pt-1">
+                        <button type="submit" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">
+                            + Insert Record to File
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Records Table -->
+                <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 font-mono text-xs">
+                                <th class="py-2.5 px-4">Roll No</th>
+                                <th class="py-2.5 px-4">Student Name</th>
+                                <th class="py-2.5 px-4">Course Stream</th>
+                                <th class="py-2.5 px-4">CGPA</th>
+                                <th class="py-2.5 px-4 text-right">CRUD Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body" class="divide-y divide-slate-200 dark:divide-slate-800">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: INTERACTIVE TO-DO LIST WEB APPLICATION DEMO                  -->
+    <!-- ===================================================================== -->
+    <div id="todo-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 no-print">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="check-square" class="w-5 h-5 text-cyan-400"></i>
+                    <div>
+                        <h3 class="font-bold text-base">To-Do List Web Application — Live LocalStorage Demo</h3>
+                        <p class="text-[11px] font-mono text-slate-400">Create, update & filter task records persisted in browser storage</p>
+                    </div>
+                </div>
+                <button onclick="closeTodoModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto space-y-5 flex-1">
+                <!-- Analytics Summary Strip -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-center">
+                        <div class="text-[11px] font-mono text-slate-400">Total Tasks</div>
+                        <div id="todo-stat-total" class="text-xl font-bold text-slate-900 dark:text-white">0</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-center">
+                        <div class="text-[11px] font-mono text-amber-500">Pending</div>
+                        <div id="todo-stat-pending" class="text-xl font-bold text-amber-600 dark:text-amber-400">0</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center">
+                        <div class="text-[11px] font-mono text-emerald-500">Completed</div>
+                        <div id="todo-stat-done" class="text-xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+                    </div>
+                </div>
+
+                <!-- Add Task Form -->
+                <form onsubmit="addTodoTask(event)" class="flex gap-2">
+                    <input type="text" id="todo-input" required placeholder="Add a new data analysis task (e.g., Clean sales CSV in pandas)..." class="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-cyan-500">
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shrink-0">
+                        + Add Task
+                    </button>
+                </form>
+
+                <!-- Filter Tabs -->
+                <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                    <div class="flex gap-2">
+                        <button onclick="setTodoFilter('all')" data-todo-filter="all" class="todo-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-cyan-600 text-white">All</button>
+                        <button onclick="setTodoFilter('pending')" data-todo-filter="pending" class="todo-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white">Pending</button>
+                        <button onclick="setTodoFilter('completed')" data-todo-filter="completed" class="todo-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white">Completed</button>
+                    </div>
+                    <span class="text-[11px] font-mono text-slate-400">Synced with localStorage</span>
+                </div>
+
+                <!-- Task List Container -->
+                <div id="todo-list-container" class="space-y-2">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 3: PRINTABLE RESUME SUMMARY VIEW                                -->
+    <!-- ===================================================================== -->
+    <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800 no-print">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-indigo-400"></i>
+                    <span class="font-bold text-sm">Supreet Gupta — Official Resume Summary</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold flex items-center gap-1.5">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                        <span>Print / Save PDF</span>
+                    </button>
+                    <button onclick="closeResumeModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formatted Resume Content -->
+            <div class="p-8 overflow-y-auto space-y-5 text-slate-800 dark:text-slate-200 text-sm leading-relaxed">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4 text-center sm:text-left">
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">SUPREET GUPTA</h2>
+                    <p class="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+                        Lucknow, India &nbsp;|&nbsp; +91 9305145509 &nbsp;|&nbsp; manas.gupta44444@gmail.com &nbsp;|&nbsp; linkedin.com/in/supreet-gupta-a6771a381
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Career Objective</h3>
+                    <p class="text-xs sm:text-sm">
+                        Detail-oriented BCA student with a strong foundation in SQL, programming, and structured data handling, seeking an entry-level Data Analyst role. Comfortable working with data queries, file-based record systems, and logical problem-solving, with a genuine interest in turning raw data into clear, usable insights.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Education</h3>
+                    <div class="flex justify-between font-semibold text-xs sm:text-sm">
+                        <span>Bachelor of Computer Applications (BCA) — PSIT, Kanpur</span>
+                        <span>2024 – 2027 (Pursuing, 2nd Year)</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Technical Skills</h3>
+                    <ul class="text-xs sm:text-sm space-y-1">
+                        <li><strong>Data & Querying:</strong> SQL (queries, joins, aggregation basics)</li>
+                        <li><strong>Programming Languages:</strong> Python, C, C++, Java, JavaScript</li>
+                        <li><strong>Data Handling:</strong> File handling & structured record management, Data Structures (basics)</li>
+                        <li><strong>Core Concepts:</strong> Object-Oriented Programming, Logical & Analytical Problem-Solving</li>
+                        <li><strong>Cloud Basics:</strong> Microsoft Azure Fundamentals</li>
+                        <li><strong>Currently Learning:</strong> Excel/Power BI for data visualization, Python for data analysis (pandas)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Relevant Projects</h3>
+                    <div class="space-y-2 text-xs sm:text-sm">
+                        <div>
+                            <div class="font-bold">Student Management System <span class="font-mono text-xs font-normal text-slate-500">(C++ / Java, File Handling)</span></div>
+                            <p class="text-slate-600 dark:text-slate-300">Built a console-based system to add, update, search, and delete structured student records (CRUD). Used file handling to persist and retrieve records between sessions and applied OOP for modularity.</p>
+                        </div>
+                        <div>
+                            <div class="font-bold">To-Do List Web Application <span class="font-mono text-xs font-normal text-slate-500">(HTML, CSS, JavaScript)</span></div>
+                            <p class="text-slate-600 dark:text-slate-300">Built a data-driven task tracker where users create, update, and filter task records by status, using browser local storage to persist structured data across sessions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Certifications</h3>
+                        <ul class="list-disc list-inside text-xs sm:text-sm space-y-1">
+                            <li>HackerRank Certification — SQL (Basic)</li>
+                            <li>Udemy Certification — Microsoft Azure Fundamentals (Basics)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold mb-1">Core Strengths</h3>
+                        <ul class="list-disc list-inside text-xs sm:text-sm space-y-1">
+                            <li>Strong grasp of SQL & logical problem-solving</li>
+                            <li>Accurate record structuring & retrieval</li>
+                            <li>Eager team learner in Excel, Power BI & Python</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- APPLICATION JAVASCRIPT                                                -->
+    <!-- ===================================================================== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // -----------------------------------------------------------------
+        // 1. THEME TOGGLE (Dark / Light Mode)
+        // -----------------------------------------------------------------
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            showToast(isDark ? 'Switched to Dark Analytics Theme' : 'Switched to Light Theme');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // -----------------------------------------------------------------
+        // 2. TOAST NOTIFICATION HELPER (No alert() calls)
+        // -----------------------------------------------------------------
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-indigo-600 text-white text-xs font-medium shadow-lg border border-slate-700 flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100';
+            toast.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+
+        // -----------------------------------------------------------------
+        // 3. CLIPBOARD COPY HELPER
+        // -----------------------------------------------------------------
+        function copyText(text, label) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`${label} copied to clipboard!`);
+            } catch (err) {
+                showToast(`Copy failed — ${text}`);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // -----------------------------------------------------------------
+        // 4. SKILLS CATEGORY FILTER
+        // -----------------------------------------------------------------
+        function filterSkills(category) {
+            document.querySelectorAll('.skill-tab').forEach(btn => {
+                if (btn.dataset.skillTab === category) {
+                    btn.className = 'skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition';
+                } else {
+                    btn.className = 'skill-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+                }
+            });
+
+            document.querySelectorAll('.skill-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // -----------------------------------------------------------------
+        // 5. PROJECT 1 SIMULATOR: STUDENT MANAGEMENT SYSTEM (CRUD / SQL)
+        // -----------------------------------------------------------------
+        const defaultStudents = [
+            { roll: 101, name: 'Supreet Gupta', course: 'BCA Data Analytics', cgpa: 8.9 },
+            { roll: 102, name: 'Riya Sharma', course: 'BCA Cloud & SQL', cgpa: 8.5 },
+            { roll: 103, name: 'Aman Mishra', course: 'BCA Core', cgpa: 7.8 },
+            { roll: 104, name: 'Neha Tiwari', course: 'BCA Data Analytics', cgpa: 9.1 },
+            { roll: 105, name: 'Vikram Singh', course: 'BCA Cloud & SQL', cgpa: 8.2 }
+        ];
+
+        let studentRecords = JSON.parse(localStorage.getItem('sg_demo_students')) || [...defaultStudents];
+
+        function saveStudentRecords() {
+            localStorage.setItem('sg_demo_students', JSON.stringify(studentRecords));
+        }
+
+        function openStudentModal() {
+            document.getElementById('student-modal').classList.remove('hidden');
+            document.getElementById('student-modal').classList.add('flex');
+            renderStudentRecords();
+        }
+
+        function closeStudentModal() {
+            document.getElementById('student-modal').classList.add('hidden');
+            document.getElementById('student-modal').classList.remove('flex');
+        }
+
+        function renderStudentRecords() {
+            const searchVal = document.getElementById('student-search').value.trim().toLowerCase();
+            const courseVal = document.getElementById('student-filter-course').value;
+            const tbody = document.getElementById('student-table-body');
+            const sqlPreview = document.getElementById('student-sql-preview');
+
+            // Update simulated SQL query string
+            let queryStr = `SELECT * FROM student_records.dat`;
+            const clauses = [];
+            if (courseVal !== 'ALL') clauses.push(`course = '${courseVal}'`);
+            if (searchVal) clauses.push(`(name LIKE '%${searchVal}%' OR roll_no = '${searchVal}')`);
+            if (clauses.length > 0) queryStr += ` WHERE ` + clauses.join(' AND ');
+            queryStr += ` ORDER BY roll_no ASC;`;
+            sqlPreview.textContent = queryStr;
+
+            const filtered = studentRecords.filter(stu => {
+                const matchesCourse = courseVal === 'ALL' || stu.course === courseVal;
+                const matchesSearch = !searchVal || stu.name.toLowerCase().includes(searchVal) || String(stu.roll).includes(searchVal);
+                return matchesCourse && matchesSearch;
+            });
+
+            document.getElementById('student-count-badge').textContent = `${filtered.length} Record(s) Matched`;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 font-mono text-xs">No matching student records found in file stream.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(stu => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                    <td class="py-3 px-4 font-mono font-semibold text-indigo-600 dark:text-indigo-400">#${stu.roll}</td>
+                    <td class="py-3 px-4 font-medium text-slate-900 dark:text-white">${stu.name}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${stu.course}</span>
+                    </td>
+                    <td class="py-3 px-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">${Number(stu.cgpa).toFixed(1)}</td>
+                    <td class="py-3 px-4 text-right space-x-2">
+                        <button onclick="boostStudentCgpa(${stu.roll})" class="px-2 py-1 rounded bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-mono text-xs" title="Simulate UPDATE record">+0.1 CGPA</button>
+                        <button onclick="deleteStudentRecord(${stu.roll})" class="px-2 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 font-mono text-xs" title="Simulate DELETE record">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addStudentRecord(e) {
+            e.preventDefault();
+            const roll = parseInt(document.getElementById('stu-roll').value, 10);
+            const name = document.getElementById('stu-name').value.trim();
+            const course = document.getElementById('stu-course').value;
+            const cgpa = parseFloat(document.getElementById('stu-cgpa').value);
+
+            if (studentRecords.some(s => s.roll === roll)) {
+                showToast(`Roll No #${roll} already exists! Updating record instead.`);
+                studentRecords = studentRecords.map(s => s.roll === roll ? { roll, name, course, cgpa } : s);
+            } else {
+                studentRecords.push({ roll, name, course, cgpa });
+                showToast(`Record #${roll} (${name}) written to file storage.`);
+            }
+
+            studentRecords.sort((a, b) => a.roll - b.roll);
+            saveStudentRecords();
+            renderStudentRecords();
+            e.target.reset();
+        }
+
+        function boostStudentCgpa(roll) {
+            studentRecords = studentRecords.map(s => {
+                if (s.roll === roll) {
+                    const updated = Math.min(10.0, +(s.cgpa + 0.1).toFixed(1));
+                    return { ...s, cgpa: updated };
+                }
+                return s;
+            });
+            saveStudentRecords();
+            renderStudentRecords();
+            showToast(`Updated Roll #${roll} CGPA in file storage.`);
+        }
+
+        function deleteStudentRecord(roll) {
+            studentRecords = studentRecords.filter(s => s.roll !== roll);
+            saveStudentRecords();
+            renderStudentRecords();
+            showToast(`Deleted Roll #${roll} from student_records.dat`);
+        }
+
+        function resetStudentDemo() {
+            studentRecords = [...defaultStudents];
+            saveStudentRecords();
+            renderStudentRecords();
+            showToast('Reset student file stream to default dataset.');
+        }
+
+        // -----------------------------------------------------------------
+        // 6. PROJECT 2 SIMULATOR: TO-DO LIST WEB APP (LocalStorage)
+        // -----------------------------------------------------------------
+        const defaultTodos = [
+            { id: 1, title: 'Practice complex SQL INNER & LEFT JOIN queries on HackerRank', completed: true },
+            { id: 2, title: 'Build interactive sales dashboard in Power BI & Excel', completed: false },
+            { id: 3, title: 'Clean & analyze sample dataset using Python pandas', completed: false },
+            { id: 4, title: 'Review Microsoft Azure Fundamentals cloud storage notes', completed: true }
+        ];
+
+        let todoItems = JSON.parse(localStorage.getItem('sg_demo_todos')) || [...defaultTodos];
+        let currentTodoFilter = 'all';
+
+        function saveTodos() {
+            localStorage.setItem('sg_demo_todos', JSON.stringify(todoItems));
+        }
+
+        function openTodoModal() {
+            document.getElementById('todo-modal').classList.remove('hidden');
+            document.getElementById('todo-modal').classList.add('flex');
+            renderTodos();
+        }
+
+        function closeTodoModal() {
+            document.getElementById('todo-modal').classList.add('hidden');
+            document.getElementById('todo-modal').classList.remove('flex');
+        }
+
+        function setTodoFilter(filter) {
+            currentTodoFilter = filter;
+            document.querySelectorAll('.todo-filter-btn').forEach(btn => {
+                if (btn.dataset.todoFilter === filter) {
+                    btn.className = 'todo-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-cyan-600 text-white';
+                } else {
+                    btn.className = 'todo-filter-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white';
+                }
+            });
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const total = todoItems.length;
+            const done = todoItems.filter(t => t.completed).length;
+            const pending = total - done;
+
+            document.getElementById('todo-stat-total').textContent = total;
+            document.getElementById('todo-stat-pending').textContent = pending;
+            document.getElementById('todo-stat-done').textContent = done;
+
+            const filtered = todoItems.filter(t => {
+                if (currentTodoFilter === 'pending') return !t.completed;
+                if (currentTodoFilter === 'completed') return t.completed;
+                return true;
+            });
+
+            const container = document.getElementById('todo-list-container');
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-xs font-mono text-slate-400">No tasks in this status view.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+                    <label class="flex items-center gap-3 cursor-pointer flex-1">
+                        <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleTodo(${item.id})" class="w-4 h-4 rounded accent-cyan-600">
+                        <span class="text-sm ${item.completed ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-200 font-medium'}">${item.title}</span>
+                    </label>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono ${item.completed ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}">
+                            ${item.completed ? 'DONE' : 'PENDING'}
+                        </span>
+                        <button onclick="deleteTodo(${item.id})" class="text-xs font-mono text-rose-500 hover:underline px-1.5">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addTodoTask(e) {
+            e.preventDefault();
+            const input = document.getElementById('todo-input');
+            const title = input.value.trim();
+            if (!title) return;
+            todoItems.unshift({ id: Date.now(), title, completed: false });
+            saveTodos();
+            renderTodos();
+            input.value = '';
+            showToast('Task saved to browser LocalStorage.');
+        }
+
+        function toggleTodo(id) {
+            todoItems = todoItems.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            saveTodos();
+            renderTodos();
+        }
+
+        function deleteTodo(id) {
+            todoItems = todoItems.filter(t => t.id !== id);
+            saveTodos();
+            renderTodos();
+            showToast('Task record removed from LocalStorage.');
+        }
+
+        // -----------------------------------------------------------------
+        // 7. RESUME MODAL & CONTACT FORM HANDLER
+        // -----------------------------------------------------------------
+        function openResumeModal() {
+            document.getElementById('resume-modal').classList.remove('hidden');
+            document.getElementById('resume-modal').classList.add('flex');
+        }
+
+        function closeResumeModal() {
+            document.getElementById('resume-modal').classList.add('hidden');
+            document.getElementById('resume-modal').classList.remove('flex');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('sender-name').value.trim();
+            const email = document.getElementById('sender-email').value.trim();
+            const subject = document.getElementById('sender-subject').value.trim() || 'Data Analyst Portfolio Inquiry';
+            const message = document.getElementById('sender-message').value.trim();
+
+            const mailtoLink = `mailto:manas.gupta44444@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+            window.location.href = mailtoLink;
+            showToast('Opening your email client to send message to Supreet!');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
